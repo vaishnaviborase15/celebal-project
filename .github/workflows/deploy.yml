@@ -1,0 +1,36 @@
+name: Build and Deploy WAR to Azure App Service via FTP
+
+on:
+  push:
+    branches:
+      - main  # Trigger when code is pushed to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code from GitHub
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Java 1.8 (required for your Maven project)
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+
+      # Step 3: Build with Maven
+      - name: Build with Maven
+        run: mvn clean package
+
+      # Step 4: Deploy WAR to Azure App Service using FTP
+      - name: Deploy WAR to Azure
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.AZURE_FTP_ENDPOINT }}
+          username: ${{ secrets.AZURE_FTP_USERNAME }}
+          password: ${{ secrets.AZURE_FTP_PASSWORD }}
+          local-dir: target/
+          server-dir: site/wwwroot/webapps/
