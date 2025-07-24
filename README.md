@@ -53,7 +53,7 @@ The project is containerized using **Docker** and deployed to **Azure App Servic
 - **Docker Desktop**  
 - **Azure Subscription**  
 - **GitHub Account**  
-- Basic knowledge of Git, Maven build lifecycle, and Azure Web Apps.
+- **Basic knowledge of Git, Maven build lifecycle, and Azure Web Apps.**
 
 ---
 
